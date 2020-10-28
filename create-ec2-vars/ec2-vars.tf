@@ -5,3 +5,4 @@ resource "aws_instance" "terraform-ec2-vars" {
   tags = {
     Name = "terraform-ec2-vars"
   }
+}
