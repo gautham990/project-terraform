@@ -6,5 +6,5 @@ resource "aws_instance" "terraform" {
   }
 }
 output "public-ip" {
-  value = "aws_instance.terraform.public_ip"
+  value = aws_instance.terraform.public_ip
 }
