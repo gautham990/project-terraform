@@ -15,7 +15,7 @@ variable "az-names" {
 }
 variable "subnet-cidr" {
   type = list
-  default = ["10.0.0.0/24","10.0.1.0/24","10.0.2.0/24"]
+  default = ["10.0.0.0","10.0.1.0","10.0.2.0"]
 }
 
 resource "aws_vpc" "prod-vpc" {
@@ -36,7 +36,7 @@ resource "aws_internet_gateway" "prod-IG" {
 }
 resource "aws_subnet" "prod-subnet" {
   vpc_id     = aws_vpc.prod-vpc.id
-  cidr_block = "var.subnet-cidr[count.index]"
+  cidr_block = var.subnet-cidr[count.index]/24
   availability_zone = "var.az-names[count.index]"
 
   tags = {
