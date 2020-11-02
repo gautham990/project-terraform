@@ -36,7 +36,7 @@ resource "aws_internet_gateway" "prod-IG" {
 resource "aws_subnet" "prod-subnet" {
   vpc_id     = aws_vpc.prod-vpc.id
   availability_zone = var.az[count.index]
-  cidr_block = var.cidr[availability_zone]
+  cidr_block = var.cidr[aws_subnet.prod-subnet.availability_zone]
   tags = {
     Name = var.az[count.index]
   }
