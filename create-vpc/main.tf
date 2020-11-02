@@ -38,7 +38,7 @@ resource "aws_subnet" "prod-subnet" {
   availability_zone = var.az[count.index]
   cidr_block = var.cidr[var.az]
   tags = {
-    Name = prod-subnet-var.az[count.index]
+    Name = var.az[count.index]
   }
   count = 3
 }
