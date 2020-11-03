@@ -93,3 +93,6 @@ resource "aws_instance" "web-server" {
     Name = "web-server"
   }
 }
+output "web-server-public-ip" {
+  value = aws_instance.web-server.public_ip
+}
