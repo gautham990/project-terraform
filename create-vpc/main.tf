@@ -50,7 +50,6 @@ resource "aws_route_table_association" "rt-association" {
   subnet_id      = aws_subnet.prod-subnet[count.index].id
   count = 3
 }
-
 variable "sec-groups-ports" {
   description = "Allowed ports"
   type        = map
@@ -64,7 +63,6 @@ resource "aws_security_group" "web-server-sg" {
   name        = "web-server-sg"
   description = "Allows web and SSH traffic"
   vpc_id      = aws_vpc.prod-vpc.id
-
   dynamic "ingress" {
     for_each = var.sec-groups-ports
     content {
@@ -80,9 +78,18 @@ resource "aws_security_group" "web-server-sg" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
-
   tags = {
     Name = "web-server-sg"
   }
 }
 
+/* code works till here */
+resource "aws_instance" "web-server" {
+  ami           = "ami-093da183b859d5a4b"
+  instance_type = "t2.micro"
+  vpc_security_group_ids = [aws_security_group.web-server-sg.id]
+  associate_public_ip_address = 1
+  tags = {
+    Name = "web-server"
+  }
+}
