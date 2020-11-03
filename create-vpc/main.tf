@@ -53,7 +53,7 @@ resource "aws_route_table_association" "rt-association" {
 /* code works till here */
 variable "sec-groups-ports" {
   description = "Allowed ports"
-  type        = map()
+  type        = map
   default     = {
     "22" = [
       "192.168.0.0/16"]
