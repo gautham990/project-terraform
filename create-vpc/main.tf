@@ -54,7 +54,7 @@ resource "aws_route_table_association" "rt-association" {
 variable "sec-groups-ports" {
   description = "Allowed ports"
   type        = list
-  default     = ["443","80","22"]
+  default     = [443,80,22]
 }
 resource "aws_security_group" "web-server" {
   name        = "web-server"
