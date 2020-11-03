@@ -47,6 +47,6 @@ resource "aws_subnet" "prod-subnet" {
 
 resource "aws_route" "main-RT" {
   route_table_id = aws_vpc.prod-vpc.main_route_table_id
-  destination_cidr_block = "0.0.0.0./0"
+  destination_cidr_block = "0.0.0.0/0"
   gateway_id = aws_internet_gateway.prod-IG.id
 }
