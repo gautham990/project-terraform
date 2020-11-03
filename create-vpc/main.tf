@@ -8,7 +8,6 @@ terraform {
 provider "aws" {
   region = "ap-southeast-1"
 }
-
 variable "cidr" {
   default = {
     "ap-southeast-1a" = "10.0.1.0/24"
@@ -19,7 +18,6 @@ variable "cidr" {
 variable "az" {
   default = ["ap-southeast-1a","ap-southeast-1b","ap-southeast-1c"]
 }
-
 resource "aws_vpc" "prod-vpc" {
   cidr_block       = "10.0.0.0/16"
   instance_tenancy = "default"
@@ -42,11 +40,19 @@ resource "aws_subnet" "prod-subnet" {
   }
   count = 3
 }
-
-/* working code till here */
-
 resource "aws_route" "main-RT" {
   route_table_id = aws_vpc.prod-vpc.main_route_table_id
   destination_cidr_block = "0.0.0.0/0"
   gateway_id = aws_internet_gateway.prod-IG.id
+}
+/* working code till here
+resource "aws_route_table_association" "rt-association" {
+  route_table_id = aws_vpc.prod-vpc.main_route_table_id
+  subnet_id      = aws_subnet.prod-subnet[count.index].id
+  count = 3
+}
+*/
+output "subnet-ID" {
+  value = aws_subnet.prod-subnet[count.index].id
+  count = 3
 }
