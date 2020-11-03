@@ -45,10 +45,48 @@ resource "aws_route" "main-RT" {
   destination_cidr_block = "0.0.0.0/0"
   gateway_id = aws_internet_gateway.prod-IG.id
 }
-
 resource "aws_route_table_association" "rt-association" {
   route_table_id = aws_vpc.prod-vpc.main_route_table_id
   subnet_id      = aws_subnet.prod-subnet[count.index].id
   count = 3
 }
+/* code works till here */
+variable "sec-groups-ports" {
+  description = "Allowed ports"
+  type        = list
+  default     = {
+    "22" = [
+      "192.168.0.0/16"]
+    "443" = [
+      "0.0.0.0/0"]
+    "80" = [
+      "0.0.0.0/0"]
+  }
+}
+resource "aws_security_group" "web-server" {
+  name        = "web-server"
+  description = "Allows web and SSH traffic"
+  vpc_id      = aws_vpc.prod-vpc.id
 
+  dynamic "ingress" {
+    for_each = "var.sec-groups-ports"
+    iterator = port
+    content {
+      from_port   = port.key
+      to_port     = port.key
+      protocol    = "tcp"
+      cidr_blocks = port.value
+    }
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "web-server"
+  }
+}
