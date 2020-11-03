@@ -70,12 +70,11 @@ resource "aws_security_group" "web-server" {
 
   dynamic "ingress" {
     for_each = "var.sec-groups-ports"
-    iterator = port
     content {
-      from_port   = port.key
-      to_port     = port.key
+      from_port   = ingress.key
+      to_port     = ingress.key
       protocol    = "tcp"
-      cidr_blocks = port.value
+      cidr_blocks = ingress.value
     }
   }
 
