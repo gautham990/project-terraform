@@ -62,7 +62,7 @@ resource "aws_security_group" "web-server" {
   vpc_id      = aws_vpc.prod-vpc.id
 
   dynamic "ingress" {
-    for_each = "var.sec-groups-ports"
+    for_each = var.sec-groups-ports
     content {
       from_port   = ingress.value
       to_port     = ingress.value
