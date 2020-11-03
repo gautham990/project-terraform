@@ -45,16 +45,10 @@ resource "aws_route" "main-RT" {
   destination_cidr_block = "0.0.0.0/0"
   gateway_id = aws_internet_gateway.prod-IG.id
 }
-/* working code till here
+
 resource "aws_route_table_association" "rt-association" {
   route_table_id = aws_vpc.prod-vpc.main_route_table_id
   subnet_id      = aws_subnet.prod-subnet[count.index].id
   count = 3
 }
-*/
-{
-output "subnet-ID" {
-value = aws_subnet.prod-subnet[count.index].id
-}
-count = 3
-}
+
