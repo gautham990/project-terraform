@@ -50,7 +50,7 @@ resource "aws_route_table_association" "rt-association" {
   subnet_id      = aws_subnet.prod-subnet[count.index].id
   count = 3
 }
-/* code works till here */
+
 variable "sec-groups-ports" {
   description = "Allowed ports"
   type        = map
@@ -60,8 +60,8 @@ variable "sec-groups-ports" {
     "80"  = ["0.0.0.0/0"]
   }
 }
-resource "aws_security_group" "web-server" {
-  name        = "web-server"
+resource "aws_security_group" "web-server-sg" {
+  name        = "web-server-sg"
   description = "Allows web and SSH traffic"
   vpc_id      = aws_vpc.prod-vpc.id
 
@@ -82,6 +82,7 @@ resource "aws_security_group" "web-server" {
   }
 
   tags = {
-    Name = "web-server"
+    Name = "web-server-sg"
   }
 }
+
