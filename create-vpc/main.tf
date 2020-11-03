@@ -52,7 +52,9 @@ resource "aws_route_table_association" "rt-association" {
   count = 3
 }
 */
+{
 output "subnet-ID" {
-  value = aws_subnet.prod-subnet[count.index].id
-  count = 3
+value = aws_subnet.prod-subnet[count.index].id
+}
+count = 3
 }
