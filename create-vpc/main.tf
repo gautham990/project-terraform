@@ -87,6 +87,7 @@ resource "aws_security_group" "web-server-sg" {
 resource "aws_instance" "web-server" {
   ami           = "ami-093da183b859d5a4b"
   instance_type = "t2.micro"
+  subnet_id = aws_subnet.prod-subnet[0].id
   vpc_security_group_ids = [aws_security_group.web-server-sg.id]
   associate_public_ip_address = true
   tags = {
