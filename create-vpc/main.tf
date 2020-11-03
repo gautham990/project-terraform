@@ -53,8 +53,12 @@ resource "aws_route_table_association" "rt-association" {
 /* code works till here */
 variable "sec-groups-ports" {
   description = "Allowed ports"
-  type        = list
-  default     = [443,80,22]
+  type        = map
+  default     = {
+    "443" = ["0.0.0.0/0"]
+    "22"  = ["192.168.0.0/16"]
+    "80"  = ["0.0.0.0/0"]
+  }
 }
 resource "aws_security_group" "web-server" {
   name        = "web-server"
@@ -64,13 +68,12 @@ resource "aws_security_group" "web-server" {
   dynamic "ingress" {
     for_each = var.sec-groups-ports
     content {
-      from_port   = ingress.value
-      to_port     = ingress.value
+      from_port   = ingress.key
+      to_port     = ingress.key
       protocol    = "tcp"
-      cidr_blocks = ["0.0.0.0/0"]
+      cidr_blocks = ingress.value
     }
   }
-
   egress {
     from_port   = 0
     to_port     = 0
