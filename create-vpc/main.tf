@@ -42,14 +42,11 @@ resource "aws_subnet" "prod-subnet" {
   }
   count = 3
 }
-output "main-rt-id" {
-  value = "aws_vpc.prod-vpc.main_route_table_id"
-}
-/* working code till here
+
+/* working code till here */
 
 resource "aws_route" "main-RT" {
-  route_table_id = "aws_vpc.prod-vpc.main_route_table_id"
+  route_table_id = aws_vpc.prod-vpc.main_route_table_id
   destination_cidr_block = "0.0.0.0./0"
-  gateway_id = "aws_internet_gateway.prod-IG.id"
+  gateway_id = aws_internet_gateway.prod-IG.id
 }
-*/
