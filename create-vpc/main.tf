@@ -92,7 +92,7 @@ resource "aws_instance" "web-server" {
   tags = {
     Name = "web-server"
   }
-/*
+
   provisioner "remote-exec" {
     connection {
       type = "ssh"
@@ -106,7 +106,7 @@ resource "aws_instance" "web-server" {
       "sudo systemctl restart apache2"
     ]
   }
-  */
+
 }
 output "web-server-public-ip" {
   value = aws_instance.web-server.public_ip
