@@ -102,11 +102,9 @@ resource "aws_instance" "web-server" {
     }
     inline = [
       "sudo apt-get update",
-      "sudo apt-get install apache2 -y",
-#      "sudo systemctl restart apache2"
+      "sudo apt-get install apache2 -y"
     ]
   }
-
 }
 output "web-server-public-ip" {
   value = aws_instance.web-server.public_ip
