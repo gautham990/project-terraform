@@ -92,8 +92,22 @@ resource "aws_instance" "web-server" {
   tags = {
     Name = "web-server"
   }
+/*
+  provisioner "remote-exec" {
+    connection {
+      type = "ssh"
+      user  = ubuntu
+      private_key = file("main.pem")
+      host = self.public_ip
+    }
+    inline = [
+      "sudo apt-get update",
+      "sudo apt-get install apache2 -y",
+      "sudo systemctl restart apache2"
+    ]
+  }
+  */
 }
 output "web-server-public-ip" {
   value = aws_instance.web-server.public_ip
 }
-/* code works till here */
