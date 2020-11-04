@@ -96,7 +96,7 @@ resource "aws_instance" "web-server" {
   provisioner "remote-exec" {
     connection {
       type = "ssh"
-      user  = ubuntu
+      user  = "ubuntu"
       private_key = file("main.pem")
       host = self.public_ip
     }
