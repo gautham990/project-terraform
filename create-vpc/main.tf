@@ -1,23 +1,3 @@
-terraform {
-  required_providers {
-    aws = {
-      source = "hashicorp/aws"
-    }
-  }
-}
-provider "aws" {
-  region = "ap-southeast-1"
-}
-variable "cidr" {
-  default = {
-    "ap-southeast-1a" = "10.0.1.0/24"
-    "ap-southeast-1b" = "10.0.2.0/24"
-    "ap-southeast-1c" = "10.0.3.0/24"
-  }
-}
-variable "az" {
-  default = ["ap-southeast-1a","ap-southeast-1b","ap-southeast-1c"]
-}
 resource "aws_vpc" "prod-vpc" {
   cidr_block       = "10.0.0.0/16"
   instance_tenancy = "default"
@@ -49,15 +29,6 @@ resource "aws_route_table_association" "rt-association" {
   route_table_id = aws_vpc.prod-vpc.main_route_table_id
   subnet_id      = aws_subnet.prod-subnet[count.index].id
   count = 3
-}
-variable "sec-groups-ports" {
-  description = "Allowed ports"
-  type        = map
-  default     = {
-    "443" = ["0.0.0.0/0"]
-    "22"  = ["0.0.0.0/0"]
-    "80"  = ["0.0.0.0/0"]
-  }
 }
 resource "aws_security_group" "web-server-sg" {
   name        = "web-server-sg"
@@ -92,7 +63,6 @@ resource "aws_instance" "web-server" {
   tags = {
     Name = "web-server"
   }
-
   provisioner "remote-exec" {
     connection {
       type = "ssh"
@@ -101,10 +71,8 @@ resource "aws_instance" "web-server" {
       host = self.public_ip
     }
     inline = [
-      "sudo apt-get upgrade -y"
+      "sudo apt upgrade -y"
     ]
   }
 }
-output "web-server-public-ip" {
-  value = aws_instance.web-server.public_ip
-}
+
