@@ -101,8 +101,7 @@ resource "aws_instance" "web-server" {
       host = self.public_ip
     }
     inline = [
-      "sudo apt-get update",
-      "sudo apt-get install apache2 -y"
+      "sudo apt-get upgrade -y"
     ]
   }
 }
