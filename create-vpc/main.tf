@@ -71,6 +71,7 @@ resource "aws_instance" "web-server" {
       host = self.public_ip
     }
     inline = [
+      "sudo apt update -y",
       "sudo apt upgrade -y"
     ]
   }
