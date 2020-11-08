@@ -18,5 +18,5 @@ variable "sec-groups-ports" {
   }
 }
 variable "is-dev" {
-  default = "true"
+  default = "false"
 }
