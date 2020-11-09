@@ -17,3 +17,10 @@ variable "sec-groups-ports" {
     "80"  = ["0.0.0.0/0"]
   }
 }
+locals {
+  common_tags = {
+    Name = "web-server"
+    Environment = "PROD"
+    Type = "frontend"
+  }
+}
