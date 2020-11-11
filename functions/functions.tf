@@ -53,26 +53,16 @@ resource "aws_security_group" "web-server-sg" {
     Name = "web-server-sg"
   }
 }
-resource "aws_instance" "web-server" {
-  ami           = "ami-093da183b859d5a4b"
+resource "aws_instance" "webapp" {
+  ami           = lookup(var.ami,var.os )
   instance_type = "t2.micro"
-  subnet_id = aws_subnet.prod-subnet[0].id
+  subnet_id = aws_subnet.prod-subnet[count.index].id
   vpc_security_group_ids = [aws_security_group.web-server-sg.id]
   associate_public_ip_address = true
   key_name = "main"
-  tags = local.common_tags
-  provisioner "remote-exec" {
-    connection {
-      type = "ssh"
-      user  = "ubuntu"
-      private_key = file("main.pem")
-      host = self.public_ip
-    }
-
-    inline = [
-      "sudo apt update -y",
-      "sudo apt upgrade -y"
-    ]
+  tags = {
+    Name = element(var.ec2-names,count.index )
+    timestamp = formatdate("DD MMM YYYY hh:mm ZZZ", timestamp())
   }
+  count = 3
 }
-
