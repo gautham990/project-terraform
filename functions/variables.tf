@@ -21,7 +21,7 @@ variable "ec2-names" {
   default = ["webapp1","webapp2","webapp3"]
 }
 variable "os" {
-  default = "ubuntu20"
+  default = "ubuntu18"
 }
 variable "ami" {
   default = {
