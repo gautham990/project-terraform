@@ -61,7 +61,7 @@ data "aws_ami" "web" {
     values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
   }
   filter {
-    name = "VirtualizationType"
+    name = "virtualization_type"
     values = ["hvm"]
   }
 }
