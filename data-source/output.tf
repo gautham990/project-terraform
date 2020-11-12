@@ -1,5 +1,5 @@
 output "AMI_ID" {
-  value = data.aws_ami.web
+  value = data.aws_ami.web.id
 }
 
 output "web-server-public-ip" {
