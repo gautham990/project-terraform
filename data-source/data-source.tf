@@ -57,7 +57,7 @@ data "aws_ami" "web" {
   owners = ["099720109477"]
   most_recent = "true"
   filter {
-    name = "Name"
+    name = "AMI Name"
     values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
   }
   filter {
