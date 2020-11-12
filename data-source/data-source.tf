@@ -54,11 +54,11 @@ resource "aws_security_group" "web-server-sg" {
   }
 }
 data "aws_ami" "web" {
-  owners = ["099720109477"]
+  owners = ["137112412989"]
   most_recent = "true"
   filter {
     name = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+    values = ["amzn2-ami-hvm-*"]
   }
   filter {
     name = "virtualization-type"
