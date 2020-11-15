@@ -10,6 +10,7 @@ resource "aws_instance" "web-server" {
   instance_type = "t2.micro"
   tags = local.common_tags
   provisioner "local-exec" {
+    when = "destroy"
     command = "echo ${aws_instance.web-server.private_ip} >> private_IP.txt"
   }
 }
