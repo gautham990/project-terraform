@@ -16,12 +16,12 @@ data "aws_availability_zones" "AZ" {
 }
 resource "aws_subnet" "subnet" {
   vpc_id     = aws_vpc.vpc.id
-  availability_zone = data.aws_availability_zones.AZ[count.index]
+  availability_zone = data.aws_availability_zones.AZ.names[count.index]
   cidr_block = var.subnet_CIDR[count.index]
   tags = {
     Name = var.subnet-name[count.index]
   }
-  count = length(data.aws_availability_zones.AZ)
+  count = length(data.aws_availability_zones.AZ.names)
 }
 resource "aws_route" "main-RT" {
   route_table_id = aws_vpc.vpc.main_route_table_id
@@ -31,7 +31,7 @@ resource "aws_route" "main-RT" {
 resource "aws_route_table_association" "rt-association" {
   route_table_id = aws_vpc.vpc.main_route_table_id
   subnet_id      = aws_subnet.subnet[count.index].id
-  count = length(data.aws_availability_zones.AZ)
+  count = length(data.aws_availability_zones.AZ.names)
 }
 resource "aws_security_group" "SG" {
   name        = lookup(var.SG-name,"Name" )
