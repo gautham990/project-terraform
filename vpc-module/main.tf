@@ -21,7 +21,7 @@ resource "aws_subnet" "subnet" {
   tags = {
     Name = var.subnet-name[count.index]
   }
-  count = data.aws_availability_zones.AZ.count
+  count = length(data.aws_availability_zones.AZ)
 }
 resource "aws_route" "main-RT" {
   route_table_id = aws_vpc.vpc.main_route_table_id
@@ -31,11 +31,11 @@ resource "aws_route" "main-RT" {
 resource "aws_route_table_association" "rt-association" {
   route_table_id = aws_vpc.vpc.main_route_table_id
   subnet_id      = aws_subnet.subnet[count.index].id
-  count = data.aws_availability_zones.AZ.count
+  count = length(data.aws_availability_zones.AZ)
 }
 resource "aws_security_group" "SG" {
-  name        = lookup(var.SG-name,Name )
-  description = lookup(var.SG-name,Description )
+  name        = lookup(var.SG-name,"Name" )
+  description = lookup(var.SG-name,"Description" )
   vpc_id      = aws_vpc.vpc.id
   dynamic "ingress" {
     for_each = var.sec-groups-ports
@@ -53,6 +53,6 @@ resource "aws_security_group" "SG" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   tags = {
-    Name = lookup(var.SG-name,Name)
+    Name = lookup(var.SG-name,"Name")
   }
 }
