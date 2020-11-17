@@ -4,11 +4,11 @@ variable "CIDR" {
 }
 variable "VPC-name" {
   type = string
-  default = DEV-VPC
+  default = "DEV-VPC"
 }
 variable "IG-name" {
   type = string
-  default = DEV-IG
+  default = "DEV-IG"
 }
 variable "subnet_CIDR" {
   type = list(data.aws_availability_zones.AZ.count)
