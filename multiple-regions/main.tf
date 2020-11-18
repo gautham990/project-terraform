@@ -36,7 +36,6 @@ resource "aws_instance" "web2" {
   provider = aws.mumbai
   ami           = data.aws_ami.AMI-web2.id
   instance_type = "t2.micro"
-  key_name = "main"
   tags = {
     Name = lookup(var.EC2-name,"ap-south-1" )
   }
