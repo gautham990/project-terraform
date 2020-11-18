@@ -12,10 +12,12 @@ variable "IG-name" {
 }
 variable "subnet_CIDR" {
   type = list(string)
+  description = "Length should be equal to number of AZs in the region"
   default = ["10.0.1.0/24","10.0.2.0/24","10.0.3.0/24"]
 }
 variable "subnet-name" {
   type = list(string)
+  description = "Length should be equal to number of AZs in the region"
   default = ["DEV-sub-1","DEV-sub-2","DEV-sub-3"]
 }
 variable "SG-name" {
