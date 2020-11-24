@@ -12,7 +12,7 @@ resource "aws_s3_bucket" "test-bucket" {
         "s3:GetObject"
       ],
       "Effect": "Allow",
-      "Resource": ${aws_s3_bucket.test-bucket.arn},
+      "Resource": "arn:aws:s3:::project-devops-241120/*",
       "Principal": "*"
     }
   ]
