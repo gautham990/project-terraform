@@ -1,6 +1,6 @@
 resource "aws_s3_bucket" "test-bucket" {
   bucket = "project-devops-241120"
- # acl    = "private"
+  acl    = "private"
   policy = <<EOF
 {
   "Id": "Policy1606205384131",
