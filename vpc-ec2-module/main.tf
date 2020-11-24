@@ -14,7 +14,7 @@ module "vpc" {
 resource "aws_security_group" "web-server" {
   name        = "allow ssh"
   description = "Allow ssh inbound traffic"
-  vpc_id      = module.vpc.default_vpc_id
+  vpc_id      = module.vpc.vpc_id
 
   ingress {
     description = "SSH to VPC"
@@ -41,7 +41,7 @@ output "ID-sg" {
 output "ID-subnet" {
   value = module.vpc.public_subnets[0]
 }
-/*
+
 module "ec2_cluster" {
   source                 = "terraform-aws-modules/ec2-instance/aws"
   version                = "~> 2.0"
@@ -53,11 +53,10 @@ module "ec2_cluster" {
   instance_type          = "t2.micro"
   key_name               = "main"
   vpc_security_group_ids = [aws_security_group.web-server.id]
-  subnet_id              = module.vpc.public_subnets[0]
+  subnet_id              = module.vpc.public_subnets[count.index]
 
   tags = {
     Terraform   = "true"
     Environment = "dev"
   }
 }
-*/
