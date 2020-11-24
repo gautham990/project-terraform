@@ -45,7 +45,7 @@ module "ec2_cluster" {
   ami                    = "ami-03faaf9cde2b38e9f"
   instance_type          = "t2.micro"
   key_name               = "main"
-  vpc_security_group_ids = aws_security_group.web-server.id
+  vpc_security_group_ids = [aws_security_group.web-server.id]
   subnet_id              = module.vpc.public_subnets[0]
 
   tags = {
