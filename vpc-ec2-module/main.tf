@@ -35,6 +35,13 @@ resource "aws_security_group" "web-server" {
     Name = "allow-ssh"
   }
 }
+output "ID-sg" {
+  value = aws_security_group.web-server.id
+}
+output "ID-subnet" {
+  value = module.vpc.public_subnets[0]
+}
+/*
 module "ec2_cluster" {
   source                 = "terraform-aws-modules/ec2-instance/aws"
   version                = "~> 2.0"
@@ -53,3 +60,4 @@ module "ec2_cluster" {
     Environment = "dev"
   }
 }
+*/
