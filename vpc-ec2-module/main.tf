@@ -47,13 +47,13 @@ module "ec2_cluster" {
   version                = "~> 2.0"
 
   name                   = "web-server"
-  instance_count         = 2
 
   ami                    = "ami-03faaf9cde2b38e9f"
   instance_type          = "t2.micro"
   key_name               = "main"
   vpc_security_group_ids = [aws_security_group.web-server.id]
   subnet_id              = module.vpc.public_subnets[count.index]
+  count                  = 2
 
   tags = {
     Terraform   = "true"
