@@ -18,6 +18,10 @@ resource "aws_s3_bucket" "test-bucket" {
   ]
 }]
 EOF
+  website {
+    index_document = "index.html"
+    error_document = "error.html"
+  }
   tags = {
     Name        = "test-bucket"
     Environment = "Dev"
