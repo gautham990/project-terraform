@@ -1,5 +1,5 @@
-resource "aws_s3_bucket" "test-bucket" {
-  bucket = "project-devops-241120"
+resource "aws_s3_bucket" "s3-bucket" {
+  bucket = var.bucket-name
   acl    = "private"
   policy = <<EOF
 {
@@ -12,7 +12,7 @@ resource "aws_s3_bucket" "test-bucket" {
         "s3:GetObject"
       ],
       "Effect": "Allow",
-      "Resource": "arn:aws:s3:::project-devops-241120/*",
+      "Resource": "arn:aws:s3:::${var.bucket-name}/*",
       "Principal": "*"
     }
   ]
@@ -23,7 +23,7 @@ EOF
     error_document = "error.html"
   }
   tags = {
-    Name        = "test-bucket"
+    Name        = "s3-bucket"
     Environment = "Dev"
     Terraform = "yes"
   }
