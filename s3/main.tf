@@ -1,6 +1,6 @@
 resource "aws_s3_bucket" "s3-bucket" {
   bucket = var.bucket-name
-  acl    = "private"
+  acl    = "public-read"
   policy = <<EOF
 {
   "Id": "Policy1606205384131",
@@ -22,9 +22,5 @@ EOF
     index_document = "index.html"
     error_document = "error.html"
   }
-  tags = {
-    Name        = "s3-bucket"
-    Environment = "Dev"
-    Terraform = "yes"
-  }
+  tags = var.tags
 }
