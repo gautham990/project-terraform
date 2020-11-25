@@ -1,0 +1,1 @@
+bucket-name = "project-devops-251120"
