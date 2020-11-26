@@ -1,6 +1,6 @@
 output "bucket-arn" {
-  value = s3-module.aws_s3_bucket.s3-bucket.arn
+  value = module.s3-module.bucket-arn
 }
 output "bucket-endpoint" {
-  value = aws_s3_bucket.s3-bucket.website_endpoint
+  value = module.s3-module.bucket-endpoint
 }
