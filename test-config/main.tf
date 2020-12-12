@@ -19,8 +19,9 @@ resource "aws_subnet" "subnet" {
   vpc_id = aws_vpc.VPC.id
   availability_zone = data.aws_availability_zones.AZ.names[count.index]
   tags = {
-    Name = format(data.aws_availability_zones.AZ.names[count.index]%s,var.prefix)
+    Name = data.aws_availability_zones.AZ.names[count.index]
   }
   count = length(data.aws_availability_zones.AZ.names)
 }
+
 
