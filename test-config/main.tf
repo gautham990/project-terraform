@@ -14,4 +14,10 @@ resource "aws_internet_gateway" "IG" {
 data "aws_availability_zones" "AZ" {
   all_availability_zones = true
 }
+resource "aws_subnet" "subnet" {
+  cidr_block = var.subnet-cidr[count.index]
+  vpc_id = aws_vpc.VPC.id
+  availability_zone = data.aws_availability_zones.AZ.names[count.index]
+  count = length(tomap(data.aws_availability_zones.AZ.names))
+}
 
