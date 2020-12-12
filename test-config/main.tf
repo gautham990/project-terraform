@@ -23,5 +23,14 @@ resource "aws_subnet" "subnet" {
   }
   count = length(data.aws_availability_zones.AZ.names)
 }
-
+resource "aws_route" "RT" {
+  route_table_id = aws_vpc.VPC.main_route_table_id
+  destination_cidr_block = "0.0.0.0/0"
+  gateway_id = aws_internet_gateway.IG.id
+}
+resource "aws_route_table_association" "rt-association" {
+  route_table_id = aws_vpc.VPC.main_route_table_id
+  subnet_id      = aws_subnet.subnet[count.index].id
+  count = length(data.aws_availability_zones.AZ.names)
+}
 
