@@ -13,7 +13,7 @@ variable "subnet-cidr" {
 variable "ingress_ports" {
   type = map(string)
   default = {
-    "22" = ["172.31.0.0/16"]
-    "80" = ["0.0.0.0/0"]
+     22 = ["172.31.0.0/16"]
+     80 = ["0.0.0.0/0"]
   }
 }
