@@ -33,4 +33,27 @@ resource "aws_route_table_association" "rt-association" {
   subnet_id      = aws_subnet.subnet[count.index].id
   count = length(data.aws_availability_zones.AZ.names)
 }
+resource "aws_security_group" "SG-main" {
+  name        = "SG-main"
+  description = "Allow  inbound traffic"
+  vpc_id      = aws_vpc.VPC.id
+  dynamic "ingress" {
+    for_each = var.ingress_ports
+    content {
+      from_port = ingress.key
+      protocol = "tcp"
+      to_port = ingress.value
+    }
+  }
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "SG-${var.prefix}"
+  }
+}
 
