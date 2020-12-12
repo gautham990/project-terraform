@@ -42,7 +42,8 @@ resource "aws_security_group" "SG-main" {
     content {
       from_port = ingress.key
       protocol = "tcp"
-      to_port = ingress.value
+      to_port = ingress.key
+      cidr_blocks = ingress.value
     }
   }
   egress {
